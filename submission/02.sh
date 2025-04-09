@@ -25,3 +25,6 @@ utxo_txid=$(bitcoin-cli -regtest -rpcwallet=btrustwallet decoderawtransaction $r
 # 2016
 
 txhex=$(bitcoin-cli -regtest -rpcwallet=btrustwallet -named createrawtransaction inputs='''[{"txid":"'$utxo_txid'", "vout":0},{"txid":"'$utxo_txid'", "vout":1}]''' outputs='''{"'$reciever'": '$amount_btc'}'''  locktime=2016 )
+
+# echo transaction hex
+echo $txhex
