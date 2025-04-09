@@ -21,10 +21,11 @@ rawtxhex=01000000000101c8b0928edebbec5e698d5f86d0474595d9f6a5b2e4e3772cd9d1005f2
 
 utxo_txid=$(bitcoin-cli -regtest -rpcwallet=btrustwallet decoderawtransaction $rawtxhex | jq -r ".txid")
 
-# lock time will be 6 * 24 *17
-# 2016
+# lock time will be 6 * 24 * 14
+# then add 25 since current block is 25
+# this gives us 2041
 
-txhex=$(bitcoin-cli -regtest -rpcwallet=btrustwallet -named createrawtransaction inputs='''[{"txid":"'$utxo_txid'", "vout":0},{"txid":"'$utxo_txid'", "vout":1}]''' outputs='''{"'$reciever'": '$amount_btc'}'''  locktime=2016 )
+txhex=$(bitcoin-cli -regtest -rpcwallet=btrustwallet -named createrawtransaction inputs='''[{"txid":"'$utxo_txid'", "vout":0},{"txid":"'$utxo_txid'", "vout":1}]''' outputs='''{"'$reciever'": '$amount_btc'}'''  locktime=2041 )
 
 # echo transaction hex
 echo $txhex
